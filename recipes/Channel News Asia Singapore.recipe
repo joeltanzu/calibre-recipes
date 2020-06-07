@@ -5,8 +5,8 @@ from calibre.web.feeds.news import BasicNewsRecipe
 
 class ChannelNewsAsiaRecipe(BasicNewsRecipe):
     title = 'Channel News Asia'
-    # Fetch articles up to whichever day, set as 1 day currently
-    oldest_article = 1
+    # Fetch articles up to whichever day, set as 1.5 day currently
+    oldest_article = 1.5
     # Article limit, set as 100 to prevent excessive spam
     max_articles_per_feed = 100
     # Display of date on the coverpage
