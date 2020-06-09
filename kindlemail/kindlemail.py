@@ -1,6 +1,7 @@
 import smtplib
 import getpass
 import os
+import sys
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
@@ -31,7 +32,7 @@ files = os.listdir()
 print("List of files currently in folder:")
 # Print out files in current folder
 for i in range(len(files)):
-    print(f"{i}. {files[i]}")
+    print(f"{i+1}. {files[i]}") # Set as i+1 for user readability
 filenum = input("Select the file number you wish to upload: ")
 
 # Check if valid integer added
@@ -40,17 +41,23 @@ try:
 except ValueError:
     print("Please insert a valid integer")
     input("Press any key to quit")
-    exit
+    sys.exit()
 finally:
     filenum = int(filenum)
 
 # Check if file number given is valid
-if filenum > (len(files)-1) or filenum < 0:
+if filenum > (len(files)) or filenum <= 0:
     print("Please give a valid selection")
     input("Press any key to quit")
-    exit
+    sys.exit()
 else:
     filename = files[filenum]
+
+# Check if user is trying to send script as file
+if filename == sys.argv[0]:
+    print("Please send a valid file, you cannot send the script as the file")
+    input("Press any key to quit")
+    sys.exit()
 
 """
 ---TOUCH ANYTHING BELOW HERE AT YOUR OWN RISK---
@@ -90,3 +97,4 @@ except:
 
 # Display status before quitting
 input("Press any key to quit")
+sys.exit()
