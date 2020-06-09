@@ -1,5 +1,6 @@
 import smtplib
 import getpass
+import os
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
@@ -20,10 +21,36 @@ password = getpass.getpass(prompt='Password: ', stream=None) # Insert your passw
 # Email details
 sent_from = user
 to = 'yourkindleemail@kindle.com' # Put in your kindle email here
+# Print email sending list
+print("Sending files to", to)
 subject = 'kindlebook'
 mail_content = 'Sending kindle books'
-# Filename must be in same directory as script
-filename = 'kindlefilename.mobi' # Put your kindle filename you want to upload here
+
+# List files in the current folder
+files = os.listdir()
+print("List of files currently in folder:")
+# Print out files in current folder
+for i in range(len(files)):
+    print(f"{i}. {files[i]}")
+filenum = input("Select the file number you wish to upload: ")
+
+# Check if valid integer added
+try:
+    filenum = int(filenum)
+except ValueError:
+    print("Please insert a valid integer")
+    input("Press any key to quit")
+    exit
+finally:
+    filenum = int(filenum)
+
+# Check if file number given is valid
+if filenum > (len(files)-1) or filenum < 0:
+    print("Please give a valid selection")
+    input("Press any key to quit")
+    exit
+else:
+    filename = files[filenum]
 
 """
 ---TOUCH ANYTHING BELOW HERE AT YOUR OWN RISK---
@@ -60,3 +87,6 @@ try:
     print('Email sent successfully')
 except:
     print('Unable to establish connection')
+
+# Display status before quitting
+input("Press any key to quit")
